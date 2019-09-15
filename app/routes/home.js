@@ -4,6 +4,11 @@ import homeList2 from '../component/home/list2/view';
 const home = [
   {
     exact: true,
+    path: '/',
+    component: Container,
+  },
+  {
+    exact: true,
     path: '/home',
     component: Container,
   },
