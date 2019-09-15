@@ -29,6 +29,7 @@ app.listen(2468);
 // import React from 'react';
 import Koa from 'koa';
 import routerMid from './mid/routerMid';
+import forward from './mid/forward';
 
 const path = require('path');
 
@@ -41,6 +42,7 @@ app.use(routerMid);
 app.use(require('koa-static')(path.join(__dirname, '../dist')));
 
 app.use(routes.routes(), routes.allowedMethods());
+app.use(forward());
 // const App = () => <div>Hello Koa SSR</div>;
 //
 // app.use((ctx) => {

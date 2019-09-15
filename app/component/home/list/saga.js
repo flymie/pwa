@@ -4,7 +4,7 @@ import * as types from './type';
 import { changeData } from './action';
 
 function* getMusic(action) {
-  const result = yield $api.get('/api/v2/music/search', action.data);
+  const result = yield $api.get(`${process.env.BASE_URL}/douban/v2/music/search`, action.data);
   if (result.code === 0) {
     yield put(changeData({
       value: result.count,

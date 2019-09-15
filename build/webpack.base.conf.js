@@ -23,6 +23,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        exclude: /(node_modules|bower_components)/,
         use: [
           {
             loader: 'style-loader', // 在html中插入<style>标签
@@ -32,31 +33,26 @@ module.exports = {
           },
           {
             loader: 'postcss-loader',
-            options: {
-              plugins: [
-                require('autoprefixer')({
-                  overrideBrowserslist: ['last 5 version'],
-                }),
-              ],
-            },
           },
         ],
       },
       {
         test: /\.less$/,
+        exclude: /(node_modules|bower_components)/,
         use: [
           { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'less-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[path][name]-[local]___[hash:base64:5]',
+            },
+          },
+          {
+            loader: 'less-loader',
+          },
           {
             loader: 'postcss-loader', // 自动加前缀
-            options: {
-              plugins: [
-                require('autoprefixer')({
-                  overrideBrowserslist: ['last 5 version'],
-                }),
-              ],
-            },
           },
 
         ],
@@ -69,13 +65,6 @@ module.exports = {
           { loader: 'sass-loader' },
           {
             loader: 'postcss-loader',
-            options: {
-              plugins: [
-                require('autoprefixer')({
-                  overrideBrowserslist: ['last 5 version'],
-                }),
-              ],
-            },
           },
         ],
       },
@@ -98,6 +87,6 @@ module.exports = {
       Images: path.resolve(__dirname, '../static/images'),
       appPath: APP_PATH,
     },
-    extensions: ['.js', '.jsx', 'css', '.json'],
+    extensions: ['.js', '.jsx', 'css', 'less', '.json'],
   },
 };

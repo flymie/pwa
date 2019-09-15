@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { increaseAction } from './action';
+import style from './style.less';
 
 class Container extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class Container extends React.Component {
     return (
       <div className="a">
         <div>
-          <span>{value}</span>
+          <span className={style.flag}>{value}</span>
           <button
             onClick={() => {
               dispatch(increaseAction({
@@ -37,7 +38,7 @@ class Container extends React.Component {
         </div>
         <h1 className="a_b">hello, world!</h1>
         <p className="background">test speed</p>
-        {/*<img src={require('Images/userImg240.png')} alt="" />*/}
+        <img src={require('Images/userImg240.png')} alt="" />
         {
           arr.map((v, index) => (
             <p key={`${index + 1}`}>{v}</p>

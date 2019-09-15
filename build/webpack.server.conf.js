@@ -14,10 +14,7 @@ module.exports = merge({
     path: path.resolve(__dirname, '../server'),
   },
   // 服务端打包的时候忽略外部的npm包
-  externals: nodeExternals({
-    // 当然外部的css还是可以打进来的
-    whitelist: /\.css$/,
-  }),
+  externals: nodeExternals(),
   plugins: [
     new webpack.DefinePlugin({
       process: {
@@ -37,9 +34,25 @@ module.exports = merge({
           loader: 'babel-loader',
         },
       },
+      {
+        test: /\.css$/,
+        use: ['ignore-loader'],
+      },
+      {
+        test: /\.less$/,
+        use: ['ignore-loader'],
+      },
+      {
+        test: /\.scss$/,
+        use: ['ignore-loader'],
+      },
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx', 'css', '.json'],
+    alias: {
+      Images: path.resolve(__dirname, '../static/images'),
+      appPath: path.resolve(__dirname, '../app'),
+    },
+    extensions: ['.js', '.jsx', 'css', 'less', '.json'],
   },
 });
