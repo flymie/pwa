@@ -24,7 +24,7 @@ module.exports = merge(baseWebpackConfig, {
       process: {
         env: {
           NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'production'),
-          BASE_URL: JSON.stringify(process.env.BASE_URI || 'http://localhost:9000'),
+          BASE_URL: JSON.stringify(process.env.BASE_URL || 'http://localhost:5678'),
         },
       },
     }),

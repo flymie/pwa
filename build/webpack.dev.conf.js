@@ -25,7 +25,7 @@ module.exports = merge(baseWebpackConfig, {
       process: {
         env: {
           NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
-          BASE_URL: JSON.stringify(process.env.BASE_URI || 'http://localhost:1234'),
+          BASE_URL: JSON.stringify(process.env.BASE_URI || 'http://localhost:1234/FORWARD'),
         },
       },
     }),
@@ -41,11 +41,11 @@ module.exports = merge(baseWebpackConfig, {
     noInfo: true,
     open: true,
     proxy: {
-      '/': {
+      '/FORWARD': {
         secure: false,
         changeOrigin: true,
-        target: 'http://localhost:9000',
-        pathRewrite: { '^/': '' },
+        target: 'http://localhost:5678',
+        pathRewrite: { '^/FORWARD': '' },
       },
     },
   },

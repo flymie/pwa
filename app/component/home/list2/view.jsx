@@ -15,6 +15,10 @@ class Container extends React.Component {
   }
 
   componentDidMount() {
+    // const { dispatch, match } = this.props;
+    // dispatch(init({
+    //   q: match.params.a,
+    // }));
   }
 
   componentDidUpdate() {
@@ -49,6 +53,7 @@ Container.propTypes = {
   value: PropTypes.number.isRequired,
   // onIncreaseClick: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
+  match: PropTypes.shape(),
 };
 
 const mapStateToProps = state => Object.assign({}, state.homeList2);

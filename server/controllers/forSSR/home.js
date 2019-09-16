@@ -1,8 +1,8 @@
-// import routes from '../../app/routes/index';
-// import store from '../../app/createStore';
-// import { matchRoutes } from 'react-router-config';
+const { store, router } = require('../../../dist/forSSr.js').default;
 
-const { store, router } = require('../../forSSr').default;
+const defaultFn = (ctx, next) => {
+  ctx.render(store);
+};
 
 const homeList2 = async (ctx, next) => {
   router.find(v => v.path === '/home/list2/:a').component.WrappedComponent.asyncData(store, ctx);
@@ -19,22 +19,9 @@ const homeList2 = async (ctx, next) => {
   });
 };
 
-const error = async (ctx, next) => {
-  // ctx.response.body = `<h1>Hello, ${name}!</h1>`;
-  // const data = {
-  //   name: 'jk',
-  //   age: 25,
-  // };
-  // ctx.body = {
-  //   status: true,
-  //   data,
-  // };
-  ctx.render(store);
-};
-
 module.exports = {
   'GET /home/list2/:a': homeList2,
-  'GET /error': error,
+  // 'GET /error': error,
   // 'GET /error/test/test': '',
   // 'GET /home': '',
 };

@@ -48,9 +48,12 @@ class Container extends React.Component {
         <p>
           <Link to={'/uRLSearchParams/1?a=4&&-.2)}&b=5=&'}>通过URLSearchParams解析查询的字段</Link>
         </p>
-        <p>
-          <Link to="/home/list2">homeList2</Link>
-        </p>
+        <div>
+          <Link to="/home/list2/a">homeList2</Link>
+          <div>
+            <a href="/home/list2/a">homeList2</a>
+          </div>
+        </div>
       </div>
     );
   }
