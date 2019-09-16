@@ -10,6 +10,7 @@ module.exports = function () {
   return async function (ctx, next) {
     const mathUrl = ctx.url.match(/^\/([^/]+)\//);
     const pathRewriteName = mathUrl ? mathUrl[1] : '';
+    // console.log(ctx.href, proxyApi, pathRewriteName);
     if (proxyApi.indexOf(pathRewriteName) !== -1) {
       ctx.respond = false;
       // 绕过koa内置对象response ，写入原始res对象，而不是koa处理过的response

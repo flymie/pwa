@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { Provider } from 'react-redux';
 // import routes from '../../app/routes/index';
-const { router } = require('../forSSr').default;
+const { router } = require('../../dist/forSSr.js').default;
 // import store from '../../app/createStore';
 
 // 匹配模板中的{{}}
@@ -14,7 +14,7 @@ function templating(props) {
   const template = fs.readFileSync(path.join(__dirname, '../../dist/index.html'), 'utf-8');
   // const template = fs.readFileSync(path.join(__dirname, '../template/index.html'), 'utf-8');
   // src=./js
-  return template.replace(/src=.\/js/g, 'src=http://localhost:9000/js').replace(/<!--([\s\S]*?)-->/g, (_, key) => (
+  return template.replace(/src=.\/js/g, 'src=http://localhost:5678/js').replace(/<!--([\s\S]*?)-->/g, (_, key) => (
     props[key.trim()]
   ));
 }

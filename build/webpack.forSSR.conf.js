@@ -11,7 +11,7 @@ module.exports = merge({
   output: {
     filename: 'forSSr.js',
     libraryTarget: 'commonjs2',
-    path: path.resolve(__dirname, '../server'),
+    path: path.resolve(__dirname, '../dist'),
   },
   // 服务端打包的时候忽略外部的npm包
   externals: nodeExternals(),
@@ -23,7 +23,7 @@ module.exports = merge({
         },
       },
     }),
-    new CleanWebpackPlugin(['../server/forSSR.js'], { allowExternal: true }),
+    new CleanWebpackPlugin(['../dist/forSSr.js'], { allowExternal: true }),
   ],
   module: {
     rules: [
@@ -45,6 +45,18 @@ module.exports = merge({
       {
         test: /\.scss$/,
         use: ['ignore-loader'],
+      },
+      {
+        test: /\.(png|jpg|jpeg)$/,
+        use: [{
+          loader: 'url-loader',
+          options: {
+            publicPath: '/',
+            name: '[path][name].[ext]',
+            limit: 500, // 是把小于500B的文件打成Base64的格式，写入JS
+          },
+        }],
+        exclude: /node_modules/,
       },
     ],
   },

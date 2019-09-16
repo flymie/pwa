@@ -35,11 +35,11 @@ const $api = {
           reject(res);
         }
       }).catch((e) => {
-        console.log(e);
+        // console.log(e);
       });
     } catch (err) {
-      alert('服务器出错');
-      console.log(err);
+      // alert('服务器出错');
+      // console.log(err);
     }
   },
   // post/patch
@@ -58,7 +58,7 @@ const $api = {
         console.log(e);
       });
     } catch (err) {
-      alert('服务器出错')
+      // alert('服务器出错')
       console.log(err);
     }
   },

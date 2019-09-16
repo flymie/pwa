@@ -33,22 +33,22 @@ import forward from './mid/forward';
 
 const path = require('path');
 
-const routes = require('./mid/controllers')();
 // import { renderToString } from 'react-dom/server';
 
 const app = new Koa();
+app.use(forward());
+const routes = require('./mid/controllers')();
 
 app.use(routerMid);
 app.use(require('koa-static')(path.join(__dirname, '../dist')));
 
 app.use(routes.routes(), routes.allowedMethods());
-app.use(forward());
 // const App = () => <div>Hello Koa SSR</div>;
 //
 // app.use((ctx) => {
 //   ctx.body = renderToString(<App />);
 // });
 
-app.listen(9000, () => {
-  console.log('node服务已经启动, 请访问localhost:9000');
+app.listen(5678, () => {
+  console.log('node服务已经启动, 请访问localhost:5678');
 });

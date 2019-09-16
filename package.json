@@ -5,9 +5,10 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --config build/webpack.dev.conf.js",
-    "build": "webpack --progress --config build/webpack.prod.conf.js",
-    "forSSR": "webpack --config build/webpack.server.conf.js",
-    "server": "nodemon ./server/index.js",
+    "forSSR": "cross-env NODE_ENV=production webpack --config build/webpack.forSSR.conf.js",
+    "client:build": "cross-env NODE_ENV=production webpack --progress --config build/webpack.prod.conf.js",
+    "build": " npm run client:build && npm run forSSR",
+    "server": "cross-env NODE_ENV=production nodemon ./server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -22,6 +23,7 @@
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "^1.0.1",
+    "cross-env": "^5.2.1",
     "css-loader": "^2.1.0",
     "eslint": "^5.15.1",
     "eslint-config-airbnb": "^17.1.0",
