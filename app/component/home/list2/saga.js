@@ -13,10 +13,12 @@ function* initFn(action) {
     if (result.code === 0) {
       yield put(changeData({
         value: result.count,
+        SSRdata: true,
       }));
     } else {
       yield put(changeData({
         value: result.count,
+        SSRdata: true,
       }));
     }
   } catch (e) {

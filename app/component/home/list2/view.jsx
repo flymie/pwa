@@ -4,21 +4,24 @@ import PropTypes from 'prop-types';
 import { increaseAction, init } from './action';
 
 class Container extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   static asyncData(store, ctx) {
     store.dispatch(init({
       q: ctx.params.a,
     }));
   }
 
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
-    // const { dispatch, match } = this.props;
-    // dispatch(init({
-    //   q: match.params.a,
-    // }));
+    console.log(this.props)
+    if (!this.props.SSRdata) {
+      const { dispatch, match } = this.props;
+      dispatch(init({
+        q: match.params.a,
+      }));
+    }
   }
 
   componentDidUpdate() {
@@ -54,6 +57,7 @@ Container.propTypes = {
   // onIncreaseClick: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
   match: PropTypes.shape(),
+  SSRdata: PropTypes.bool,
 };
 
 const mapStateToProps = state => Object.assign({}, state.homeList2);
