@@ -33,6 +33,8 @@ import forward from './mid/forward';
 
 const path = require('path');
 
+const env = process.env.NODE_ENV;
+const config = require('../build/config')[env];
 // import { renderToString } from 'react-dom/server';
 
 const app = new Koa();
@@ -49,6 +51,6 @@ app.use(routes.routes(), routes.allowedMethods());
 //   ctx.body = renderToString(<App />);
 // });
 
-app.listen(5678, () => {
-  console.log('node服务已经启动, 请访问localhost:5678');
+app.listen(config.port, () => {
+  console.log(`node服务已经启动, 请访问localhost:${config.port}`);
 });
