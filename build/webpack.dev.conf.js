@@ -3,6 +3,7 @@ const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const baseWebpackConfig = require('./webpack.base.conf.js');
+const config = require('./config')[process.env.NODE_ENV];
 
 module.exports = merge(baseWebpackConfig, {
   mode: 'development',
@@ -25,13 +26,13 @@ module.exports = merge(baseWebpackConfig, {
       process: {
         env: {
           NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
-          BASE_URL: JSON.stringify(process.env.BASE_URI || 'http://localhost:1234/FORWARD'),
+          BASE_URL: JSON.stringify(process.env.BASE_URI || config.api),
         },
       },
     }),
   ],
   devServer: {
-    port: '1234',
+    port: config.port,
     contentBase: path.join(__dirname, '../'),
     compress: true,
     historyApiFallback: true,
@@ -41,11 +42,11 @@ module.exports = merge(baseWebpackConfig, {
     noInfo: true,
     open: true,
     proxy: {
-      '/FORWARD': {
+      [`/${config.proxy.pathRewriteName}`]: {
         secure: false,
         changeOrigin: true,
-        target: 'http://localhost:5678',
-        pathRewrite: { '^/FORWARD': '' },
+        target: config.proxy.target,
+        pathRewrite: { [`^/${config.proxy.pathRewriteName}`]: '' },
       },
     },
   },
