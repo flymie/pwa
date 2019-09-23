@@ -14,16 +14,20 @@ function templating(props) {
   const template = fs.readFileSync(path.join(__dirname, '../../dist/index.html'), 'utf-8');
   // const template = fs.readFileSync(path.join(__dirname, '../template/index.html'), 'utf-8');
   // src=./js
-  return template.replace(/src=.\/js/g, 'src=http://localhost:5678/js').replace(/<!--([\s\S]*?)-->/g, (_, key) => (
-    props[key.trim()]
-  ));
+  // <link href=./css
+  return template
+    // .replace(/href=.\/css/g, 'href=http://localhost:5678/css')
+    // .replace(/src=.\/js/g, 'src=http://localhost:5678/js')
+    .replace(/<!--([\s\S]*?)-->/g, (_, key) => (
+      props[key.trim()]
+    ));
 }
 const homeFn = async (ctx, next) => {
   try {
     ctx.render = async (store) => {
       const html = renderToString(
         <Provider store={store}>
-          <StaticRouter location={ctx.url}>
+          <StaticRouter location={ctx.url} context={ctx}>
             {/* { renderRoutes(routes) } */}
             <Switch>
               {
@@ -45,11 +49,12 @@ const homeFn = async (ctx, next) => {
         html,
         store: `<script>window.__STORE__ = ${JSON.stringify(store.getState())}</script>`,
       });
+      ctx.type = 'text/html';
     };
   } catch (e) {
+    ctx.type = 'text/html';
     ctx.body = templating({ html: e.message });
   }
-  ctx.type = 'text/html';
   await next();
 };
 

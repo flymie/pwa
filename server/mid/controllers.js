@@ -56,7 +56,7 @@ const controller = () => {
       }
     }
   }
-  // 处理正常接口文件 end
+  // 处理正常接口文件 end /^\/(.*)\.css$/
   return router;
 };
 

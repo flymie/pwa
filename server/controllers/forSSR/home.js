@@ -21,7 +21,7 @@ const homeList2 = async (ctx, next) => {
 
 module.exports = {
   'GET /home/list2/:a': homeList2,
-  // 'GET /error': error,
+  'GET /error': defaultFn,
   // 'GET /error/test/test': '',
   // 'GET /home': '',
 };

@@ -9,6 +9,7 @@ const fnHello = async (ctx, next) => {
     status: true,
     data,
   };
+  ctx.type = 'text/css; charset=utf-8';
 };
 
 module.exports = {
