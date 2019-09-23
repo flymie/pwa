@@ -15,7 +15,7 @@ class Container extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
+    // console.log(this.props.staticContext)
     if (!this.props.SSRdata) {
       const { dispatch, match } = this.props;
       dispatch(init({

@@ -2,13 +2,14 @@ const merge = require('webpack-merge');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const baseWebpackConfig = require('./webpack.base.conf.js');
 
 module.exports = merge(baseWebpackConfig, {
   mode: 'production',
   output: {
     filename: 'js/[name].[chunkhash:16].js',
-    publicPath: '.',
+    publicPath: '/',
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -20,6 +21,12 @@ module.exports = merge(baseWebpackConfig, {
         removeAttributeQuotes: true,
       },
     }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: 'css/[name].[hash].css',
+      chunkFilename: 'css/[id].[hash].css',
+    }),
     new webpack.DefinePlugin({
       process: {
         env: {
@@ -30,6 +37,56 @@ module.exports = merge(baseWebpackConfig, {
     }),
     new CleanWebpackPlugin(['../dist'], { allowExternal: true }),
   ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        exclude: /(node_modules|bower_components)/,
+        use: [
+          { loader: MiniCssExtractPlugin.loader },
+          {
+            loader: 'css-loader', // 获取引用资源，如@import,url()
+          },
+          {
+            loader: 'postcss-loader',
+          },
+        ],
+      },
+      {
+        test: /\.less$/,
+        exclude: /(node_modules|bower_components)/,
+        use: [
+          { loader: MiniCssExtractPlugin.loader },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[path][name]-[local]___[hash:base64:5]',
+            },
+          },
+          {
+            loader: 'less-loader',
+          },
+          {
+            loader: 'postcss-loader', // 自动加前缀
+          },
+
+        ],
+      },
+      {
+        test: /\.scss$/,
+        exclude: /(node_modules|bower_components)/,
+        use: [
+          { loader: MiniCssExtractPlugin.loader },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' },
+          {
+            loader: 'postcss-loader',
+          },
+        ],
+      },
+    ],
+  },
   optimization: {
     splitChunks: {
       chunks: 'all',

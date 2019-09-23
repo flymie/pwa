@@ -22,53 +22,6 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
-        exclude: /(node_modules|bower_components)/,
-        use: [
-          {
-            loader: 'style-loader', // 在html中插入<style>标签
-          },
-          {
-            loader: 'css-loader', // 获取引用资源，如@import,url()
-          },
-          {
-            loader: 'postcss-loader',
-          },
-        ],
-      },
-      {
-        test: /\.less$/,
-        exclude: /(node_modules|bower_components)/,
-        use: [
-          { loader: 'style-loader' },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              localIdentName: '[path][name]-[local]___[hash:base64:5]',
-            },
-          },
-          {
-            loader: 'less-loader',
-          },
-          {
-            loader: 'postcss-loader', // 自动加前缀
-          },
-
-        ],
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'sass-loader' },
-          {
-            loader: 'postcss-loader',
-          },
-        ],
-      },
-      {
         test: /\.(png|jpg|jpeg)$/,
         use: [{
           loader: 'url-loader',
