@@ -1,20 +1,21 @@
-const { store, router } = require('../../../dist/forSSr.js').default;
+const { store, router, matchRoutes } = require('../../../dist/forSSr.js').default;
 
 const defaultFn = (ctx, next) => {
   ctx.render(store);
 };
 
 const homeList2 = async (ctx, next) => {
-  router.find(v => v.path === '/home/list2/:a').component.WrappedComponent.asyncData(store, ctx);
+  const branch = matchRoutes(router, ctx.url);
+  branch[0].route.component.WrappedComponent.asyncData(store, ctx);
+  // console.log(branch[0].route.component);
+  // router.find(v => v.path === '/home/list2/:a').component.WrappedComponent.asyncData(store, ctx);
   await new Promise((resolve) => {
     store.subscribe(async () => {
       resolve(store);
     });
   }).then((data) => {
-    if (data && typeof data.getState === 'function') {
-      // 需要同构页面， 否则就是接口，data 其实是 store
-      ctx.render(data);
-    }
+    // data 其实是 store
+    ctx.render(data);
     next();
   });
 };
