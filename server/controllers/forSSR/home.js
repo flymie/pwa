@@ -1,27 +1,47 @@
-const { store, router } = require('../../../dist/forSSr.js').default;
+const { store, router, matchRoutes } = require('../../../dist/forSSr.js').default;
 
-const defaultFn = (ctx, next) => {
-  ctx.render(store);
-};
-
-const homeList2 = async (ctx, next) => {
-  router.find(v => v.path === '/home/list2/:a').component.WrappedComponent.asyncData(store, ctx);
-  await new Promise((resolve) => {
-    store.subscribe(async () => {
-      resolve(store);
-    });
-  }).then((data) => {
-    if (data && typeof data.getState === 'function') {
-      // 需要同构页面， 否则就是接口，data 其实是 store
-      ctx.render(data);
+const defaultFn = async (ctx, next) => {
+  const branch = matchRoutes(router, ctx.url);
+  if (branch.length !== 0) {
+    if (branch[0].route.component.WrappedComponent.asyncData) {
+      branch[0].route.component.WrappedComponent.asyncData(store, ctx);
+      await new Promise((resolve) => {
+        store.subscribe(async () => {
+          resolve(store);
+        });
+      }).then((data) => {
+        // data 其实是 store
+        ctx.render(data);
+        next();
+      });
+    } else {
+      ctx.render(store);
+      await next();
     }
+  } else {
     next();
-  });
+  }
 };
+
+// const homeList2 = async (ctx, next) => {
+//   const branch = matchRoutes(router, ctx.url);
+//   // if ()
+//   branch[0].route.component.WrappedComponent.asyncData(store, ctx);
+//   // console.log(branch[0].route.component);
+//   // router.find(v => v.path === '/home/list2/:a').component.WrappedComponent.asyncData(store, ctx);
+//   await new Promise((resolve) => {
+//     store.subscribe(async () => {
+//       resolve(store);
+//     });
+//   }).then((data) => {
+//     // data 其实是 store
+//     ctx.render(data);
+//     next();
+//   });
+// };
 
 module.exports = {
-  'GET /home/list2/:a': homeList2,
+  'GET /home/list2/:a': defaultFn,
   'GET /error': defaultFn,
   // 'GET /error/test/test': '',
-  // 'GET /home': '',
 };
