@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import style from './style.less';
 
-class Page404 extends React.Component {
+class Container extends React.Component {
+
   componentDidMount() {
   }
 
@@ -20,4 +22,11 @@ class Page404 extends React.Component {
   }
 }
 
-export default Page404;
+Container.propTypes = {
+};
+
+const mapStateToProps = state => Object.assign({}, state.error);
+export default connect(
+  mapStateToProps,
+  // mapDispatchToProps,
+)(Container);
