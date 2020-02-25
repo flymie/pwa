@@ -35,7 +35,7 @@ module.exports = merge(baseWebpackConfig, {
     rules: [
       {
         test: /\.css$/,
-        exclude: /(node_modules|bower_components)/,
+        // exclude: /(node_modules|bower_components)/,
         use: [
           {
             loader: 'style-loader', // 在html中插入<style>标签
@@ -43,16 +43,14 @@ module.exports = merge(baseWebpackConfig, {
           {
             loader: 'css-loader', // 获取引用资源，如@import,url()
           },
-          {
-            loader: 'postcss-loader',
-          },
         ],
       },
       {
         test: /\.less$/,
-        exclude: /(node_modules|bower_components)/,
         use: [
-          { loader: 'style-loader' },
+          {
+            loader: 'style-loader',
+          },
           {
             loader: 'css-loader',
             options: {
@@ -72,9 +70,15 @@ module.exports = merge(baseWebpackConfig, {
       {
         test: /\.scss$/,
         use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'sass-loader' },
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'sass-loader',
+          },
           {
             loader: 'postcss-loader',
           },
@@ -97,7 +101,9 @@ module.exports = merge(baseWebpackConfig, {
         secure: false,
         changeOrigin: true,
         target: config.proxy.target,
-        pathRewrite: { [`^/${config.proxy.pathRewriteName}`]: '' },
+        pathRewrite: {
+          [`^/${config.proxy.pathRewriteName}`]: '',
+        },
       },
     },
   },

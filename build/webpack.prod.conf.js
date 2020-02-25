@@ -41,20 +41,15 @@ module.exports = merge(baseWebpackConfig, {
     rules: [
       {
         test: /\.css$/,
-        exclude: /(node_modules|bower_components)/,
         use: [
           { loader: MiniCssExtractPlugin.loader },
           {
             loader: 'css-loader', // 获取引用资源，如@import,url()
           },
-          {
-            loader: 'postcss-loader',
-          },
         ],
       },
       {
         test: /\.less$/,
-        exclude: /(node_modules|bower_components)/,
         use: [
           { loader: MiniCssExtractPlugin.loader },
           {
@@ -75,7 +70,6 @@ module.exports = merge(baseWebpackConfig, {
       },
       {
         test: /\.scss$/,
-        exclude: /(node_modules|bower_components)/,
         use: [
           { loader: MiniCssExtractPlugin.loader },
           { loader: 'css-loader' },

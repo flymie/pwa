@@ -30,7 +30,15 @@ module.exports ={
         "global-require": 0,
         "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
         "import/no-unresolved": "off",
-        "properties": "never"
+        "properties": "never",
+        "jsx-a11y/label-has-for": false,
+        "jsx-a11y/label-has-associated-control": "off",
+        "object-curly-newline": ["error", {
+            "ObjectExpression": "always",
+            "ObjectPattern": { "multiline": true },
+            "ImportDeclaration": "never",
+            "ExportDeclaration": { "multiline": false, "minProperties": 3 }
+        }]
     },
     "settings": {
         "import/resolver": {
