@@ -3,8 +3,9 @@ const k2c = require('koa2-connect');
 
 const proxyObj = {
   douban: 'https://api.douban.com',
+  oneSaid: 'http://api.guaqb.cn/v1/onesaid',
 };
-const proxyApi = ['douban'];
+const proxyApi = ['douban', 'oneSaid'];
 
 module.exports = function () {
   return async function (ctx, next) {

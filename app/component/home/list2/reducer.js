@@ -1,7 +1,7 @@
 import * as types from './type';
 
 const defaultState = {
-  value: 0,
+  value: '',
   q: 'k',
 };
 const home = (state = defaultState, action) => {

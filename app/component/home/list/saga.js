@@ -15,10 +15,18 @@ function* getMusic(action) {
       value: result.count,
     }));
   }
-};
+}
+
+function* getOneSaid() {
+  const result = yield $api.get(`${process.env.BASE_URL}/oneSaid/`, {});
+  yield put(changeData({
+    oneSaid: result,
+  }));
+}
 
 function* main() {
   yield takeLatest(types.increase, getMusic);
+  yield takeLatest(types.said, getOneSaid);
 }
 
 export default main;

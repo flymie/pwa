@@ -32,10 +32,11 @@ const $api = {
         if (res.status === 200) {
           resolve(res.data);
         } else {
+          console.log(res)
           reject(res);
         }
-      }).catch((e) => {
-        // console.log(e);
+      }).then(res2 => res2).catch((e) => {
+        console.log(e);
       });
     } catch (err) {
       // alert('服务器出错');

@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { Provider } from 'react-redux';
 // import routes from '../../app/routes/index';
-const { router } = require('../../dist/forSSr.js').default;
+const { router, store } = require('../../dist/forSSr.js').default;
 // import store from '../../app/createStore';
 
 // 匹配模板中的{{}}
@@ -24,7 +24,7 @@ function templating(props) {
 }
 const homeFn = async (ctx, next) => {
   try {
-    ctx.render = async (store) => {
+    ctx.render = async () => {
       const html = renderToString(
         <Provider store={store}>
           <StaticRouter location={ctx.url} context={ctx}>

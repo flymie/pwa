@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { increaseAction } from './action';
+import { increaseAction, saidAction } from './action';
 import style from './style.less';
 
 class Container extends React.Component {
@@ -21,7 +21,7 @@ class Container extends React.Component {
 
   render() {
     const arr = [1, 2, 3];
-    const { value, dispatch } = this.props;
+    const { value, dispatch, oneSaid } = this.props;
     return (
       <div className="a">
         <div>
@@ -36,7 +36,14 @@ class Container extends React.Component {
             getMusic
           </button>
         </div>
-        <h1 className="a_b">hello, world!</h1>
+        <h1 className="a_b">{oneSaid}</h1>
+        <button
+          onClick={() => {
+            dispatch(saidAction());
+          }}
+        >
+          随机返回一句话
+        </button>
         <p className="background">test speed</p>
         <img src={require('Images/userImg240.png')} alt="" />
         {
@@ -63,6 +70,7 @@ Container.propTypes = {
   value: PropTypes.number.isRequired,
   // onIncreaseClick: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
+  oneSaid: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => Object.assign({}, state.homeList);

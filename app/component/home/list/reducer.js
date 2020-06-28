@@ -2,6 +2,7 @@ import * as types from './type';
 
 const defaultState = {
   value: 0,
+  oneSaid: '随机返回一句话',
 };
 const home = (state = defaultState, action) => {
   switch (action.type) {
