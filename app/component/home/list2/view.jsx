@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { increaseAction, init } from './action';
+import style from './style.less';
 
 class Container extends React.Component {
   static asyncData(store, ctx) {
@@ -9,13 +10,7 @@ class Container extends React.Component {
       q: ctx.params.a,
     }));
   }
-
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
-    // console.log(this.props.staticContext)
     if (!this.props.SSRdata) {
       const { dispatch, match } = this.props;
       dispatch(init({
@@ -35,7 +30,7 @@ class Container extends React.Component {
     return (
       <div className="a">
         <div>
-          <span>{value}</span>
+          <span className={style.flag}>{value}</span>
           <button
             onClick={() => {
               dispatch(increaseAction({
@@ -53,7 +48,7 @@ class Container extends React.Component {
 }
 
 Container.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
   // onIncreaseClick: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
   match: PropTypes.shape(),

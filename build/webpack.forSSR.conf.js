@@ -14,7 +14,9 @@ module.exports = merge({
     path: path.resolve(__dirname, '../dist'),
   },
   // 服务端打包的时候忽略外部的npm包
-  externals: nodeExternals(),
+  externals: nodeExternals({
+    whitelist: [/antd/],
+  }),
   plugins: [
     new webpack.DefinePlugin({
       process: {
@@ -49,6 +51,15 @@ module.exports = merge({
       //     },
       //   ],
       // },
+      {
+        test: /\.css$/,
+        use: [
+          { loader: 'isomorphic-style-loader' },
+          {
+            loader: 'css-loader',
+          },
+        ],
+      },
       {
         test: /\.less$/,
         exclude: /(node_modules|bower_components)/,

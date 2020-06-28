@@ -3,4 +3,3 @@ import * as types from './type';
 
 export const changeData = makeActionCreator(types.changeData, 'data');
 export const increaseAction = makeActionCreator(types.increase, 'data');
-export const saidAction = makeActionCreator(types.said, 'data');

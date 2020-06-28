@@ -2,6 +2,7 @@ const { store, router, matchRoutes } = require('../../../dist/forSSr.js').defaul
 
 const defaultFn = async (ctx, next) => {
   const branch = matchRoutes(router, ctx.url);
+  // console.log(branch[0].route.component.WrappedComponent)
   if (branch.length !== 0) {
     if (branch[0].route.component.WrappedComponent.asyncData) {
       branch[0].route.component.WrappedComponent.asyncData(store, ctx);
